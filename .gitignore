@@ -10,6 +10,18 @@
 
 # ignore database files
 *.db
+*.wt
+
+*.lock
+
+journal/
+
+diagnostic.data/
+
+storage.bson
+
+WiredTiger
+WiredTiger.turtle
 
 # ignore some OS generated files
 .DS_Store
