@@ -34,7 +34,8 @@ class MongoCache(object):
     def __init__(self, client=None, expires=timedelta(days=30)):
         """Create a MongoCache object.
 
-        A MoncoCache object is a wrapper around MongoDB to cache downloads.
+        A MongoCache object is a wrapper around MongoDB to cache downloads.
+        Note: to use MongoCache, mongod must be running!
 
         Parameters
         ----------
