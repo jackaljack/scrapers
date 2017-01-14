@@ -26,7 +26,7 @@ class Downloader:
         num_retries : int
         timeout : int
         opener : None
-        cache : None
+        cache : MongoCache, or None
         """
         socket.setdefaulttimeout(timeout)
         self.throttle = Throttle(delay)
