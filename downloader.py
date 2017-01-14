@@ -16,6 +16,18 @@ class Downloader:
     def __init__(self, delay=DEFAULT_DELAY, user_agent=DEFAULT_AGENT,
                  proxies=None, num_retries=DEFAULT_RETRIES,
                  timeout=DEFAULT_TIMEOUT, opener=None, cache=None):
+        """Create a Downloader object.
+
+        Parameters
+        ----------
+        delay : int
+        user_agent : str
+        proxies : None
+        num_retries : int
+        timeout : int
+        opener : None
+        cache : None
+        """
         socket.setdefaulttimeout(timeout)
         self.throttle = Throttle(delay)
         self.user_agent = user_agent
@@ -25,6 +37,17 @@ class Downloader:
         self.cache = cache
 
     def __call__(self, url):
+        """Make the Downloader object callable.
+
+        Parameters
+        ----------
+        url : str
+
+        Returns
+        -------
+        str
+            html of the web page just downloaded
+        """
         result = None
         if self.cache:
             try:
@@ -37,18 +60,32 @@ class Downloader:
                     # server error so ignore result from cache and re-download
                     result = None
         if result is None:
-            # result was not loaded from cache so still need to download
+            # result was not loaded from cache so we still need to download
             self.throttle.wait(url)
             proxy = random.choice(self.proxies) if self.proxies else None
             headers = {'User-agent': self.user_agent}
             result = self.download(url, headers, proxy=proxy,
                                    num_retries=self.num_retries)
             if self.cache:
-                # save result to cache
                 self.cache[url] = result
         return result['html']
 
     def download(self, url, headers, proxy, num_retries, data=None):
+        """
+
+        Parameters
+        ----------
+        url : str
+        headers : dict
+        proxy : None
+        num_retries : int
+        data : None
+
+        Returns
+        -------
+        dict
+            html (str) and response code (int)
+        """
         print('Downloading:', url)
         req = requests.get(url, data=data, headers=headers)
         try:
@@ -65,17 +102,27 @@ class Downloader:
 
 
 class Throttle:
-    """Throttle downloading by sleeping between requests to same domain
-    """
 
     def __init__(self, delay):
-        # amount of delay between downloads for each domain
+        """Create a Throttle object.
+
+        Throttle downloading by sleeping between requests to same domain.
+        Throttle only when a download is made, not when loading from a cache.
+
+        Parameters
+        ----------
+        delay : int
+            amount of delay between downloads for each domain
+        """
         self.delay = delay
-        # timestamp of when a domain was last accessed
-        self.domains = {}
+        self.domains = dict()  # timestamp of when a domain was last accessed
 
     def wait(self, url):
-        """Delay if have accessed this domain recently
+        """Delay if have accessed this domain recently.
+
+        Parameters
+        ----------
+        url : str
         """
         domain = parse.urlsplit(url).netloc
         last_accessed = self.domains.get(domain)
