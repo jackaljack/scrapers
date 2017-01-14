@@ -21,12 +21,12 @@ from selenium import webdriver
 
 
 def main():
-    # chromedriver = '/usr/lib/chromium-browser/chromedriver'
-    # os.environ['webdriver.chrome.driver'] = chromedriver
-    # driver = webdriver.Chrome(chromedriver)
+    chromedriver = '/usr/lib/chromium-browser/chromedriver'
+    os.environ['webdriver.chrome.driver'] = chromedriver
+    driver = webdriver.Chrome(chromedriver)
 
     # or...
-    driver = webdriver.Firefox()
+    # driver = webdriver.Firefox()
 
     driver.get('http://example.webscraping.com/search')
     driver.find_element_by_id('search_term').send_keys('.')

@@ -12,15 +12,18 @@ COUNTRY_URL = 'http://example.webscraping.com/edit/United-Kingdom-239'
 
 
 def login_basic():
+    # can't work
     print('login_basic')
     data = {'email': LOGIN_EMAIL, 'password': LOGIN_PASSWORD}
     encoded_data = urlencode(data)
     req = requests.get(LOGIN_URL, data=encoded_data)
     print(req.url)
     print('Status code: {}\n'.format(req.status_code))
+    return req
 
 
 def login_formkey():
+    # can't work
     print('login_formkey')
     req = requests.get(LOGIN_URL)
     html = req.text
@@ -31,9 +34,11 @@ def login_formkey():
     req = requests.get(LOGIN_URL, data=encoded_data)
     print(req.url)
     print('Status code: {}\n'.format(req.status_code))
+    return req
 
 
 def login_cookies():
+    # TODO: should work but it doesn't. Fix it
     print('login_cookies')
     cj = cookiejar.CookieJar()
     req = requests.get(LOGIN_URL, cookies=cj)
@@ -45,6 +50,7 @@ def login_cookies():
     req = requests.get(LOGIN_URL, data=encoded_data)
     print(req.url)
     print('Status code: {}\n'.format(req.status_code))
+    return req
 
 
 def parse_form(html):

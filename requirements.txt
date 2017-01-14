@@ -6,4 +6,7 @@ lxml==3.7.2
 pymongo==3.4.0
 python-whois==0.6.4
 requests==2.12.4
+robobrowser==0.5.3
 selenium==3.0.2
+six==1.10.0
+Werkzeug==0.11.15
