@@ -26,7 +26,7 @@ def robobrowser_edit():
     """Use robobrowser to increment population"""
 
     # login
-    br = RoboBrowser(history=True)
+    br = RoboBrowser(history=True, parser='lxml', user_agent='a python robot')
     br.open(login_form.LOGIN_URL)
     form = br.get_form(action='#')
     print('form before {}'.format(form))
@@ -46,6 +46,14 @@ def robobrowser_edit():
     br.open(COUNTRY_URL)
     form = br.get_forms()[0]
     print('Population after:', form['population'].value)
+
+    # some info about the session
+    print('User-Agent')
+    print(br.session.headers['User-Agent'])
+    print('Cookies')
+    print(br.session.cookies.items())
+
+    # form.serialize()
 
 
 if __name__ == '__main__':
