@@ -1,0 +1,13 @@
+language: python
+php:
+- "3.4"
+- "3.5"  # I'm using a virtual environment with this version
+- "3.6"
+# install dependencies
+install: "pip install -r requirements.txt"
+# run tests
+script: pytest
+notifications:
+    email:
+        on_success: change
+        on_failure: always
