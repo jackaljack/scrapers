@@ -17,3 +17,5 @@ notifications:
     email:
         on_success: change
         on_failure: always
+after_sucess:
+  - CODECLIMATE_REPO_TOKEN=c822878192484fde3cf9c98f68e97e19d53a4838a75d6cbce8b96466fce0308f codeclimate-test-reporter
